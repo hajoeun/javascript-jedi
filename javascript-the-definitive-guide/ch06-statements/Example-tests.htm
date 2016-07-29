@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Ch06]tests</title>
+</head>
+<body>
+<script>
+//    var name = prompt("What is your name?");
+//    alert("Welcome," + name);
+//    window.close();
+
+//    var o = {x:0, y:1, z:2};
+//    var a = ['a','b','c'];
+//    var i = 0;
+//    for(var j in o) {
+//        document.write(o[j] + "<br>");
+//    }
+
+//outerloop:
+//for(var i = 0; i < 10; i++) {
+//    innerloop:
+//    for(var j = 0; j < 10; j++) {
+//        if (j > 3) break;
+//        if (i == 2) break innerloop;
+//        if (i == 4) break outerloop;
+//        document.write("i: " + i + " j: " + j + "<br>");
+//    }
+//}
+//document.write("Total i: " + i + " j: " + j + "<br>");
+
+    var i = 0, total = 0, a = [1,2,"three",4,5,6,7,8,9,10];
+    while (i < a.length) {
+        try {
+            if((typeof a[i] != 'number') || isNaN(a[i])) { //만일 숫자가 아니라면
+                continue; //루프를 다음 반복으로 넘어간다
+            }
+            total += a[i];
+        }
+        finally {
+            i++; //continue를 사용했음에도 불구하고 이 문장은 실행된다
+        }
+    }
+
+    console.log(total);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var empty = {};
+    var point = {x:0, y:0};
+    var circle = {x:point.x, y:point.y+1, radius:2};
+    var homer = {
+        "name": "Homer Simpson",
+        "age": 34,
+        "married": true,
+        "occupation": "plant operator",
+        "email": "homer@example.com"
+    };
+
+    // 대괄호 접근법
+    var customer = {
+        address1: 1,
+        address2: 2,
+        address3: 3,
+        address4: 4
+    };
+
+    var addr = "";
+    for (i = 1; i < 5; i++) {
+        addr += customer["address" + i] + '\n';
+    }
+
+    console.log(addr);
+
+    // in 구문 활용하기
+    var value = 0;
+    for (address in customer) {
+        value += customer[address];
+    }
+
+    console.log(value);
+    
+
+</script>
+</body>
+</html>
