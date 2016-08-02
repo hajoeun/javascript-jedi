@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Ch15] Example-01</title>
+</head>
+<body style="background-color: #333; color: #fff;">
+<a href="" onclick="writeAgain();">writeAgain()</a> <br>
+<a href="http://www.marpple.com" onclick="">greeting()</a> <br>
+<a href="" onclick="hello(my_value.username)">hello()</a>
+
+
+<script>
+    var today = new Date();
+    document.write("<p>Document accessed on: " + today.toString());
+
+    var my_value = {
+        username: ''
+    };
+
+    function greeting() {
+        my_value.username = prompt("What is your name?");
+        console.log(my_value.username);
+    }
+
+    function writeAgain() {
+        document.write("You are good!"); // 동작하지 않는다. 일시적으로 나타났다가 사라진다.
+    }
+
+    function hello(name) {
+        var w = window.open(),
+            d = w.document,
+            g = "Hello, ",
+            username = name || "Joeun",
+            gg = " welcome to my zone!";
+        d.open();
+        d.write(g,username,gg);
+        d.close();
+    }
+</script>
+</body>
+</html>
