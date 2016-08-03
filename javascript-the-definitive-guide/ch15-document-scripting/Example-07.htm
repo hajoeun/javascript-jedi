@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Ch15] Example-07</title>
+    <!--문서 내용을 대문자로 바꾸기-->
+</head>
+<body>
+<script>
+    function upcase(n) {
+        if (n.nodeType == 3) {
+            n.data = n.data.toUpperCase();
+        } else {
+            var kids = n.childNodes;
+            for (var i = 0; i < kids.length; i ++) upcase(kids[i]);
+        }
+    }
+</script>
+
+<p>h</p>
+<button onclick="upcase(document)">Change to upper case</button>
+</body>
+</html>

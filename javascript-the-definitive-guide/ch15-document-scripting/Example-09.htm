@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Ch15] Example-09</title>
+    <!--DocumentFragment를 사용하여 작업하기-->
+</head>
+<body>
+<script>
+    // p.437
+    function reverse(n) {
+        if(typeof n == "string") n = document.getElementById(n);
+        var f = document.createDocumentFragment();
+
+        //n의 자식을 f로 옮기면 해당 자식은 n에서 자동으로 삭제된다.
+        while(n.lastChild) f.appendChild(n.lastChild);
+
+        n.appendChild(f);
+    }
+</script>
+<ul id="list">
+    <li>4</li>
+    <li>3</li>
+    <li>2</li>
+    <li>1</li>
+</ul>
+<button onclick="reverse('list')">Reverse</button>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!--동작을 안함...!!-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Ch15] Example-04</title>
+</head>
+<body>
+<a href="" onclick="alert(getText(document))">Click me</a>
+<div>
+    <p>Hello, <i>world!</i></p>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+
+<script>
+    function getText(n) {
+        var strings = [];
+        getStrings(n, strings);
+        return strings.join("");
+
+        function getStrings(n, strings) {
+            if (n.nodeType == 3) {
+                strings.push(n.data);
+            }
+            else if (n.nodeType == 1) {
+                for(var m = n.firstChild; m != null; m = m.nextSibling) {
+                    getStrings(m, strings);
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

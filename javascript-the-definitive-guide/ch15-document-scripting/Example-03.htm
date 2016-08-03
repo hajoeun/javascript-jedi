@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Ch15] Example-03</title>
+    <script>
+        function countTags(n) {
+            var numtags = 0;
+            var list = [];
+            if (n.nodeType == 1) {
+                numtags++;
+            }
+            var children = n.childNodes;
+            for (var i = 0; i < children.length; i++) {
+                numtags += countTags(children[i]); //각 자식을 재귀적으로 호출한다.
+            }
+            return numtags;
+        }
+    </script>
+</head>
+<body onload="alert('This document has ' + countTags(document) + ' tags')">
+This is a <i>sample</i> document.
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Ch15] Example-08</title>
+</head>
+<body>
+<script>
+    function embolden(n) {
+        if(typeof n == "string") n = document.getElementById(n);
+        var b = document.createElement("b");
+        var parent = n.parentNode;
+        parent.replaceChild(b, n);
+        b.appendChild(n);
+    }
+</script>
+<p id="p1"><i>I will be</i></p>
+<p id="p2"><i>the Best</i></p>
+
+<button onclick="embolden('p2')">Embolden</button>
+</body>
+</html>

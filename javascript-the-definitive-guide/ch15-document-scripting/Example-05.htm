@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Ch15] Example-05</title>
+    <!--클래스나 태그 이름을 사용하여 HTML 엘리먼트 선택하기-->
+</head>
+<body>
+<div>
+    <h1 class="h1 class">Test Page</h1>
+    <p>Hello, world!</p>
+    <ol>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+    <!--<a href="" onclick="alert(getElements('h1 class'))">Click me</a>-->
+    <!-- 검사 > console 탭에서 직접 테스트하는 것이 더 정확하다. `getElements('','li');`-->
+</div>
+
+<script>
+    function getElements(classname, tagname, root) {
+        if(!root) root = document;
+        else if (typeof root == "string") root = document.getElementById(root);
+
+        if(!tagname) tagname = "*";
+
+        var all = root.getElementsByTagName(tagname);
+
+        if(!classname) return all;
+
+        var elements = [];
+        for(var i = 0; i < all.length; i++) {
+            var element = all[i];
+            if (isMember(element, classname))
+                elements.push(element);
+        }
+        return elements;
+
+        function isMember(element, classname) {
+            var classes = element.className;
+            if(!classes) return false;
+            if(classes == classname) return true;
+
+            var whitespace = /\s+/;
+            if(!whitespace.test(classes)) return false;
+
+            var c = classes.split(whitespace);
+            for(var i = 0; i < c.length; i++) {
+                if(c[i] == classname) return true;
+            }
+
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

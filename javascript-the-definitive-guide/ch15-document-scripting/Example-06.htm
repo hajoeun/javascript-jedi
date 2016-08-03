@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Ch15] Example-06</title>
+    <!--리스트의 엘리먼트를 오름차순으로 정렬-->
+</head>
+<body>
+<script>
+    function sortkids(e){
+        if(typeof e == "string") e = document.getElementById(e);
+
+        var kids = [];
+        for(var x = e.firstChild; x != null; x = x.nextSibling)
+            if(x.nodeType == 1) kids.push(x);
+
+        kids.sort(function (n,m) {
+            var s = n.firstChild.data;
+            var t = m.firstChild.data;
+            if(s < t) return -1;
+            else if(s > t) return 1;
+            else return 0;
+        });
+
+        for(var i = 0; i < kids.length; i++) e.appendChild(kids[i]);
+    }
+</script>
+<ul id="list">
+    <li>4</li>
+    <li>3</li>
+    <li>2</li>
+    <li>1</li>
+</ul>
+
+<button onclick="sortkids('list')">Sort list</button>
+</body>
+</html>
