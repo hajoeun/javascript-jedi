@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    function getSelectedText() {
+        if (window.getSelection) {
+            return window.getSelection().toString();
+        }
+        else if (document.getSelection) {
+            return document.getSelection();
+        }
+        else if (document.selection) {
+            return document.selection.createRange().text;
+        }
+    }
+</script>
+<p>Apple, Banana, Steve Jobs</p>
+<a href="javascript:
+    var q;
+    if (window.getSelection) q = window.getSelection().toString();
+    else if (document.getSelection) q = document.getSelection();
+    else if (document.selection) q = document.selection.createRange().text;
+    void window.open('http://en.wikipedia.org/wiki/' + q);
+">
+    Look Up Selected Text In Wikipedia
+</a>
+</body>
+</html>
