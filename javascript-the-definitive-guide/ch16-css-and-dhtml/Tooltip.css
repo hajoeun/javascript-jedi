@@ -1,0 +1,14 @@
+.tooltipShadow {
+    background-color: black;
+    opacity: .75;
+    width: 100px;
+    height: 30px;
+}
+
+.tooltipContent {
+    left: -4px; top: -4px;
+    background-color: #ff0;
+    border: solid black 1px;
+    padding: 5px;
+    font: bold 10pt sans-serif;
+}

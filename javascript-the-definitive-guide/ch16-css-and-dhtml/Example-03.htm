@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[Ch16] Example-03</title>
+    <!--p.502 간단한 색 변화 애니메이션-->
+</head>
+<body>
+<div id="urgent">
+    <h1>Red Alert!</h1>
+    The Web server is under attack!
+</div>
+<script>
+    var e = document.getElementById('urgent');
+    e.style.border = "solid black 5px";
+    e.style.padding = "50px";
+    var colors = ["white", "yellow", "orange", "red"];
+    var nextColors = 0;
+
+    setInterval (function() {
+        e.style.borderColor = colors[nextColors++ % colors.length];
+    }, 500);
+</script>
+</body>
+</html>
