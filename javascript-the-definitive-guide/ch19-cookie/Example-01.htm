@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="Cookie.js"></script>
+    <title>[Ch19] Example-01</title>
+</head>
+<body>
+<script>
+    var cookie = new Cookie("visitordata");
+
+    if (!cookie.name || !cookie.color) {
+        cookie.name = prompt("What is your name:", "");
+        cookie.color = prompt("What is your favorite color:", "");
+    }
+
+    if (!cookie.visits) cookie.visits = 1;
+    else cookie.visits++;
+
+    cookie.store(10);
+
+    document.write('<h1 style="color:' + cookie.color + '">' + 'Welcome, ' + cookie.name + '!' + '</h1>' +
+                   '<p>You hava visited ' + cookie.visits + ' times.</p>' +
+                   '<button onclick="window.cookie.remove();">Forget Me</button>');
+</script>
+</body>
+</html>
