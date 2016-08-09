@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Node Insertion Events Example</title>
-    <script type="text/javascript" src="EventUtil.js"></script>
+    <script type="text/javascript" src="08_EventUtil.js"></script>
 </head>
 <body>
     <ul id="myList">
@@ -19,27 +19,27 @@
             item.appendChild(document.createTextNode("Item 4"));
             
             EventUtil.addHandler(document, "DOMSubtreeModified", function(event){
-                alert(event.type);
-                alert(event.target);
+                console.log(event.type);
+                console.log(event.target);
             });
             EventUtil.addHandler(document, "DOMNodeInserted", function(event){
-                alert(event.type);
-                alert(event.target);
-                alert(event.relatedNode);
+                console.log(event.type);
+                console.log(event.target);
+                console.log(event.relatedNode);
             });
             EventUtil.addHandler(item, "DOMNodeInsertedIntoDocument", function(event){
-                alert(event.type);
-                alert(event.target);
+                console.log(event.type);
+                console.log(event.target);
             });            
             
             EventUtil.addHandler(item.firstChild, "DOMNodeInsertedIntoDocument", function(event){
-                alert(event.type);
-                alert(event.target);
+                console.log(event.type);
+                console.log(event.target);
             });            
             
             list.appendChild(item);
         });
 
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

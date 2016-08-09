@@ -21,7 +21,7 @@
 
                 var fragment = processor.transformToFragment(xmldom, document);
                 var text = fragment.firstChild.nodeValue;
-                alert(text);
+                console.log(text);
 
             }
         </script>           
@@ -31,5 +31,5 @@
         The XSLT should print out only text without XML code, which is displayed
         in an alert.</p>
         <div id="divResult"></div>
-    </body>
+    <script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

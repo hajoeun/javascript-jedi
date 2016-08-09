@@ -37,13 +37,13 @@
         xhr.onload = function(event){
             if ((xhr.status >= 200 && xhr.status < 300) || 
                     xhr.status == 304){
-                alert(xhr.responseText);
+                console.log(xhr.responseText);
             } else {
-                alert("Request was unsuccessful: " + xhr.status);
+                console.log("Request was unsuccessful: " + xhr.status);
             }
         };
         xhr.onerror = function(event){
-            alert("Error!");
+            console.log("Error!");
         };
 
         xhr.open("get", "altevents.php", true);
@@ -51,5 +51,5 @@
         xhr.send(null);
 
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

@@ -15,22 +15,22 @@
             var xmldom = event.newDocument;
             var input = event.input;
 
-            alert(xmldom.documentElement.tagName);  //"root"
-            alert(xmldom.documentElement.firstChild.tagName); //"child"
+            console.log(xmldom.documentElement.tagName);  //"root"
+            console.log(xmldom.documentElement.firstChild.tagName); //"child"
             
             var anotherChild = xmldom.createElement("child");
             xmldom.documentElement.appendChild(anotherChild);
             
             var children = xmldom.getElementsByTagName("child");
-            alert(children.length);   //2
+            console.log(children.length);   //2
         }, false);
         
         parser.domConfig.setParameter("error-handler", function(ex){
-            alert("Parsing error!");
+            console.log("Parsing error!");
         });
         
         parser.parseURI("example.xml");
         
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

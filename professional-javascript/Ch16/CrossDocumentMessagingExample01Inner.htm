@@ -25,10 +25,10 @@
         if (parent.postMessage){
             parent.postMessage(message, "*");  //NOTE: Star only for local files, never do this on the Internet
         } else {
-            alert("Your browser doesn't support Cross Document Messaging.");
+            console.log("Your browser doesn't support Cross Document Messaging.");
         }
         
     });
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Text Change Events Example</title>
-    <script type="text/javascript" src="EventUtil.js"></script>
+    <script type="text/javascript" src="08_EventUtil.js"></script>
 </head>
 <body>
     <div id="myDiv">Hello world!</div>
@@ -12,19 +12,19 @@
             var div = document.getElementById("myDiv");
                         
             EventUtil.addHandler(document, "DOMSubtreeModified", function(event){
-                alert(event.type);
-                alert(event.target);
+                console.log(event.type);
+                console.log(event.target);
             });
             EventUtil.addHandler(document, "DOMCharacterDataModified", function(event){
-                alert(event.type);
-                alert(event.target);
-                alert(event.prevValue);
-                alert(event.newValue);
+                console.log(event.type);
+                console.log(event.target);
+                console.log(event.prevValue);
+                console.log(event.newValue);
             });     
             
             div.firstChild.nodeValue = "Some new text";
         });
 
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

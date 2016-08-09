@@ -17,8 +17,8 @@
             
             var docWidth = Math.max(document.documentElement.scrollWidth,
                                     document.documentElement.clientWidth);
-            alert("Client: Width: " + document.documentElement.clientWidth + "\nheight: " + document.documentElement.clientHeight);
-            alert("Scroll: Width: " + document.documentElement.scrollWidth + "\nheight: " + document.documentElement.scrollHeight);
+            console.log("Client: Width: " + document.documentElement.clientWidth + "\nheight: " + document.documentElement.clientHeight);
+            console.log("Scroll: Width: " + document.documentElement.scrollWidth + "\nheight: " + document.documentElement.scrollHeight);
         }
     
         function setScrollTop(){
@@ -26,7 +26,7 @@
         }
         
         function getScrollTop(){
-            alert(document.documentElement.scrollTop);
+            console.log(document.documentElement.scrollTop);
         }
         
     
@@ -53,5 +53,5 @@ Vivamus sagittis consectetuer odio. Nulla eget ipsum. Nam lorem magna, condiment
     <input type="button" value="Set Scroll Top" onclick="setScrollTop()" />
     <input type="button" value="Get Scroll Top" onclick="getScrollTop()" />
     
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

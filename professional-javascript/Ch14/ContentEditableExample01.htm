@@ -2,10 +2,10 @@
 <html>
 <head>
     <title>Content Editable Example</title>
-    <script type="text/javascript" src="EventUtil.js"></script>
+    <script type="text/javascript" src="10_EventUtil.js"></script>
 </head>
 <body>
-    <form method="post" action="javascript:alert('Form submitted!')">
+    <form method="post" action="javascript:console.log('Form submitted!')">
         <div id="divSimple">
             <input type="button" value="Bold">
             <input type="button" value="Italic">
@@ -67,7 +67,7 @@
                 
                 switch(target.id){
                     case "btnGetHtml":
-                        alert(document.getElementById("richedit").innerHTML);
+                        console.log(document.getElementById("richedit").innerHTML);
                         break;
                     case "btnCreateLink":
                         var link = prompt("What link?", "http://www.wrox.com");
@@ -83,9 +83,9 @@
                         break;
                     case "btnGetSelected":
                         if (window.getSelection){
-                            alert(window.getSelection().toString());
+                            console.log(window.getSelection().toString());
                         } else if (document.selection){
-                            alert(document.selection.createRange().text);
+                            console.log(document.selection.createRange().text);
                         }
                         break;
                     case "btnHighlight":
@@ -114,12 +114,12 @@
                 var target = EventUtil.getTarget(event);
                 
                 if (target.type == "button"){
-                    alert(document.queryCommandState(target.value.toLowerCase(), false, null));
+                    console.log(document.queryCommandState(target.value.toLowerCase(), false, null));
                 }
             });
 
         })();
     
     </script>       
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

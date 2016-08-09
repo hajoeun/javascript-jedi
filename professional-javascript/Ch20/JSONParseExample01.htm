@@ -17,7 +17,7 @@
                    };
 
         var jsonText = JSON.stringify(book);
-        alert(jsonText);
+        console.log(jsonText);
         
         var bookCopy = JSON.parse(jsonText, function(key, value){
             if (key == "releaseDate"){
@@ -27,8 +27,8 @@
             }
         });
         
-        alert(bookCopy.releaseDate.toISOString());
+        console.log(bookCopy.releaseDate.toISOString());
 
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

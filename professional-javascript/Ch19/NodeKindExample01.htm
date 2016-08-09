@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta charset="utf-8" />
     <title>Attributes Example</title>
 </head>
 <body>
@@ -21,12 +21,12 @@
         </employees>;
 
                         
-        alert(employees.nodeKind());
-        alert(employees.*[0].nodeKind());
-        alert(employees.employee[0].@position.nodeKind());
-        alert(employees.employee[0].nodeKind());
-        alert(employees.child(2).nodeKind());
-        alert(employees.employee[0].name.*[0].nodeKind());
+        console.log(employees.nodeKind());
+        console.log(employees.*[0].nodeKind());
+        console.log(employees.employee[0].@position.nodeKind());
+        console.log(employees.employee[0].nodeKind());
+        console.log(employees.child(2).nodeKind());
+        console.log(employees.employee[0].name.*[0].nodeKind());
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>DOMSubtreeModified Event Example</title>
-    <script type="text/javascript" src="EventUtil.js"></script>
+    <script type="text/javascript" src="08_EventUtil.js"></script>
 </head>
 <body>
     <p>Scroll event example - scroll the browser window.</p>
@@ -12,8 +12,8 @@
             document.body.appendChild(document.createTextNode("Hello world!"));
         });
         EventUtil.addHandler(document, "DOMSubtreeModified", function(event){
-            alert(event.type);
+            console.log(event.type);
         });
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

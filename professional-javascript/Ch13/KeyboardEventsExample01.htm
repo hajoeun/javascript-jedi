@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Keyboard Events Example</title>
-    <script type="text/javascript" src="EventUtil.js"></script>
+    <script type="text/javascript" src="08_EventUtil.js"></script>
 </head>
 <body>
     <input type="text" id="myText" />
@@ -10,8 +10,8 @@
         var textbox = document.getElementById("myText");
         EventUtil.addHandler(textbox, "keyup", function(event){
             event = EventUtil.getEvent(event);
-            alert(event.keyCode);     
+            console.log(event.keyCode);     
         });
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

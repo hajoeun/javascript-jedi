@@ -6,22 +6,22 @@
     
         window.onload = function(){
             window.onclick = function(){
-                alert("Window");
+                console.log("Window");
             };
             
             document.onclick = function(){
-                alert("Document");
+                console.log("Document");
             };
             
             document.documentElement.onclick = function(){
-                alert("Html");
+                console.log("Html");
             };
             
             document.body.onclick = function(){
-                alert("Body");
+                console.log("Body");
             };
             document.getElementById("myDiv").onclick = function(){
-                alert("Div");
+                console.log("Div");
             };
         }
     
@@ -32,5 +32,5 @@
     <div id="myDiv">Click Me</div>
 
     
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

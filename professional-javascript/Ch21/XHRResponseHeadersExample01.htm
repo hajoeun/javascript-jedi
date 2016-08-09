@@ -37,9 +37,9 @@
         xhr.onreadystatechange = function(event){
             if (xhr.readyState == 4){
                 if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
-                    alert(xhr.getAllResponseHeaders());
+                    console.log(xhr.getAllResponseHeaders());
                 } else {
-                    alert("Request was unsuccessful: " + xhr.status);
+                    console.log("Request was unsuccessful: " + xhr.status);
                 }
             }
         };
@@ -48,5 +48,5 @@
         xhr.send(null);
 
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

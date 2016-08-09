@@ -9,7 +9,7 @@
         window.onload = function(){
             var drawing = document.getElementById("drawing");
             
-            //make sure <canvas> is completely supported
+            //make sure &lt;canvas&gt; is completely supported
             if (drawing.getContext){
             
                 var context = drawing.getContext("2d"),
@@ -35,12 +35,12 @@
                     context.fillText("Hello world!", 10, 10, 50);
                     context.fillText("Font size is " + fontSize + "px", 10, 50);
                 } else {
-                    alert("Your browser doesn't support the canvas text API.");
+                    console.log("Your browser doesn't support the canvas text API.");
                 }   
 
             }                
         };
 
     </script>
-    </body>
+    <script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

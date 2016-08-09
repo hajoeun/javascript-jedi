@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Node Removal Events Example</title>
-    <script type="text/javascript" src="EventUtil.js"></script>
+    <script type="text/javascript" src="08_EventUtil.js"></script>
 </head>
 <body>
     <ul id="myList">
@@ -17,22 +17,22 @@
             var list = document.getElementById("myList");
             
             EventUtil.addHandler(document, "DOMSubtreeModified", function(event){
-                alert(event.type);
-                alert(event.target);
+                console.log(event.type);
+                console.log(event.target);
             });
             EventUtil.addHandler(document, "DOMNodeRemoved", function(event){
-                alert(event.type);
-                alert(event.target);
-                alert(event.relatedNode);
+                console.log(event.type);
+                console.log(event.target);
+                console.log(event.relatedNode);
             });
             EventUtil.addHandler(list.firstChild, "DOMNodeRemovedFromDocument", function(event){
-                alert(event.type);
-                alert(event.target);
+                console.log(event.type);
+                console.log(event.target);
             });            
             
             list.parentNode.removeChild(list);
         });
 
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

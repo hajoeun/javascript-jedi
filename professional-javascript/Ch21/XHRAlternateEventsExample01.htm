@@ -35,23 +35,23 @@
                 
         var xhr = createXHR();        
         xhr.onload = function(event){
-            alert(xhr.responseText);
-            alert(xhr.status);
+            console.log(xhr.responseText);
+            console.log(xhr.status);
         };
         xhr.onerror = function(event){
-            alert("Error: " + xhr.status);
+            console.log("Error: " + xhr.status);
         };
         xhr.onprogress = function(event){
             var statusDiv = document.getElementById("status");
             statusDiv.innerHTML = "Received " + event.position + " of " + event.totalSize;
         };
         xhr.onloadend = function(event){
-            alert("End!");
+            console.log("End!");
         };
         xhr.open("get", "example.txt", true);
 
         xhr.send(null);
 
     </script>
-</body>
+<script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>

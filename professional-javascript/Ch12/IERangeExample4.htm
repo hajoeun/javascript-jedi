@@ -10,7 +10,7 @@
                 var p1 = document.getElementById("p1");
                 range.moveToElementText(p1);
                 range.pasteHTML("<p><em>Howdy</em> World</p>");
-                alert(document.body.innerHTML);
+                console.log(document.body.innerHTML);
             }
         </script>
     </head>
@@ -18,5 +18,5 @@
         <input type="button" value="Use Ranges" onclick="useRanges()">      
         <p><strong>Note:</strong> This example uses Internet Explorer ranges and will only work on Internet Explorer.</p>
   
-    </body>
+    <script src="dir.js"></script><script src="../exampleIterator.js"></script></body>
 </html>
