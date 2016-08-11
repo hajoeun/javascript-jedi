@@ -46,7 +46,7 @@
 
             console.log("Database initialized for first time. Database name: " + database.name + ", Version: " + database.version);
             
-        }
+        };
     
         function showResult(){
             request = database.transaction("users").objectStore("users").get("007");
