@@ -1,0 +1,49 @@
+<!--
+    FreeCodeCamp - Random Quote Machine 프로젝트
+    임의의 문장들이 출력되는 기능과 그 출력된 문장을 트위터로 공유하는 기능을 가진 페이지를 구현하라
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Random Quote Machine</title>
+</head>
+<body>
+<h1>Random Quote Machine</h1>
+<div class="quote">
+    <h3 id="words">Hello world!</h3>
+</div>
+<button id="change">Click Me</button>
+<button id="twitter" href="https://twitter.com/intent/tweet" disabled>Tweet</button>
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // 임의의 문장이 담길 배열
+        var quotes = [
+            'Nice to meet you',
+            'Where are you from?',
+            'Good morning!',
+            'I\'m find. Thank you.',
+            'Seize the day'
+        ];
+
+        var rand = 0, // 임의의 문장을 선택을 위한 인덱스 값이 담길 변수
+            word = '', // 임의의 문장을 담아둘 변수
+            len = quotes.length, // 문장을 담은 배열의 길이 (추가할 경우를 대비함)
+            tweetbox ="height=430,width=600"; // 트윗 공유 창의 사이즈와 정보를 결정하는 변수
+
+        $('#change').on('click', function() { // 클릭 이벤트를 감지하고 문장을 바꾸는 함수
+            rand = Math.floor((Math.random() * len)); // 임의의 인덱스 값을 할당
+            word = quotes[rand]; // 인덱스 값에 따른 임의의 문장 할당
+            $('#words').text(word); // 문장 기록
+            $('#twitter').prop('href','https://twitter.com/intent/tweet?text=' + word).removeAttr('disabled'); // 트윗에 전달할 문장 할당 후 트윗 버튼 비활성화 해제
+        });
+
+        $('#twitter').on('click', function() {
+            window.open(this.href,"",tweetbox); // 트윗 버튼이 클릭되면 별도의 창이 열림
+        })
+    });
+</script>
+</body>
+</html>
