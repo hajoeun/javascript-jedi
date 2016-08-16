@@ -8,17 +8,16 @@
         this.assert = function assert(value, desc) {
           var li = document.createElement("li");
           li.className = value ? "pass" : "fail";
-          li.appendChild(document.createTextNode(desc));
+          li.appendChild(document.createTextNode(desc)); // jQuery의 $('.li').text()와 같은 역할을 수행하는 구문
           results.appendChild(li);
           if (!value) {
-            li.parentNode.parentNode.className = "fail";
+            li.parentNode.parentNode.className = "fail"; // 부모 요소의 class 변경
           }
           return li;
         };
         this.test = function test(name, fn) {
           results = document.getElementById("results");
-          results = assert(true, name).appendChild(
-              document.createElement("ul"));
+          results = assert(true, name).appendChild(document.createElement("ul"));
           fn();
         };
       })();
