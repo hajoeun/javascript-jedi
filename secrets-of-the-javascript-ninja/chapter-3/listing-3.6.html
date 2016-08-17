@@ -14,15 +14,11 @@
         }
       }
 
-      var weapons = ['shuriken','katana','nunchucks']     //#3
+      var weapons = ['shuriken','katana','nunchucks'];     //#3
 
-      forEach(                                             //#4
-          weapons,
-        function(index){
-          assert(this == weapons[index],
-                 "Got the expected value of " + weapons[index]);
-        }
-      );
+      forEach( weapons, function(index) {                  //#4
+          assert(this == weapons[index], "Got the expected value of " + weapons[index]);
+      });
 
     </script>
   </body>

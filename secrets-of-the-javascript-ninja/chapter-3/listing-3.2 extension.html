@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listing 3.2</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../scripts/assert.js"></script>
+    <script type="text/javascript" src="../scripts/test.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+
+    function assertBlock(outer, inner, a, b, c) {
+        return function() { // 호출하는 일은 test.js 에서 하는 몫이기 때문에 함수 자체로 반환해준다.
+            assert(typeof outer === 'function', "outer() is in scope");
+            assert(typeof inner === 'function', "inner() is in scope");
+            assert(typeof a === 'number', "a is in scope");
+            assert(typeof b === 'number', "b is in scope");
+            assert(typeof c === 'number', "c is in scope");
+        }
+    }
+
+    test("|----- BEFORE OUTER -----|", function() {          //여기서는 inner, a, b, c가 선언된적 없는 변수이기에 매개변수로 전달할 수 없어서 assertBlock를 사용할 수 없다
+        assert(typeof outer === 'function', "outer() is in scope");
+        assert(typeof inner === 'function', "inner() is in scope");
+        assert(typeof a === 'number', "a is in scope");
+        assert(typeof b === 'number', "b is in scope");
+        assert(typeof c === 'number', "c is in scope");
+    });
+
+    function outer(){
+
+        test("|----- INSIDE OUTER, BEFORE a -----|", assertBlock(outer, inner, a, b, c)); // 매개변수로 호출할 때 당시의 컨텍스트를 전달한다.
+
+        var a = 1;
+
+        test("|----- INSIDE OUTER, AFTER a -----|", assertBlock(outer, inner, a, b, c));
+
+        function inner(){ /* does nothing */ }
+
+        var b = 2;
+
+        test("|----- INSIDE OUTER, AFTER inner() AND b -----|", assertBlock(outer, inner, a, b, c));
+
+        if (a == 1) {
+            var c = 3;
+            test("|----- INSIDE OUTER, INSIDE if -----|", assertBlock(outer, inner, a, b, c));
+        }
+
+        test("|----- INSIDE OUTER, OUTSIDE if -----|", assertBlock(outer, inner, a, b, c));
+
+    }
+
+    outer();
+
+    test("|----- AFTER OUTER -----|", function() { //#7
+        assert(typeof outer==='function', "outer() is in scope");
+        assert(typeof inner==='function', "inner() is in scope");
+        assert(typeof a==='number', "a is in scope");
+        assert(typeof b==='number', "b is in scope");
+        assert(typeof c==='number', "c is in scope");
+    });
+
+</script>
+</body>
+</html>

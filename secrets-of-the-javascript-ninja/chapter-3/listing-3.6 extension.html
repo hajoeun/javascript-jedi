@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Listing 3.6</title>
+    <script type="text/javascript" src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <script type="text/javascript">
+// 예외 상황을 추가한 listing-3.6의 확장판
+
+      function forEach(list,callback) {
+
+        //if (Object.prototype.toString.call(list) !== "[object Array]") { // 이 방법도 타입 체크에 좋은 방법이다.
+        if (!list instanceof Array && typeof list !== "object") {
+          throw {
+            name: 'TypeError',
+            message: 'First parameter of forEach should be Array.'
+          }
+        }
+
+
+        if (typeof callback !== "function") {
+          throw {
+            name: 'TypeError',
+            message: 'Second parameter of forEach should be Function.'
+          }
+        }
+
+        for (var n = 0; n < list.length; n++) {
+          callback.call(list[n], n);
+        }
+
+      }
+
+      var weapons = ['shuriken','katana','nunchucks'];
+      var se = "string";
+
+
+      var testFunction = function() {
+        try {
+          forEach( weapons, function(index) {
+            assert(this == weapons[index], "Got the expected value of " + weapons[index]);
+          });        } catch (e) {
+          console.error(e.name + ": " + e.message);
+        }
+      };
+
+      testFunction();
+
+    </script>
+  </body>
+</html>
