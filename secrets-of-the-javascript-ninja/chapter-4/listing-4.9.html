@@ -14,7 +14,7 @@
         if (isPrime.answers[value] != null) {                        //#2
           return isPrime.answers[value];                             //#2
         }                                                            //#2
-        var prime = value != 1; // 1 can never be prime
+        var prime = value != 1; // 1은 소수가 될 수 없다는 점을 분명히 하기 위한 코드. 1이 아닌 경우에만 true가 기록된다. 1인 경우에는 무조건 false
         for (var i = 2; i < value; i++) {
           if (value % i == 0) {
             prime = false;
@@ -24,8 +24,9 @@
         return isPrime.answers[value] = prime;                       //#3
       }
 
-      assert(isPrime(5), "5 is prime!" );                            //#5
-      assert(isPrime.answers[5], "The answer was cached!" );         //#5
+      assert(isPrime(12), "5 is prime!" );                            //#5
+//      assert(isPrime.answers[12], "The answer was cached!" );         // 이런식으로 하면 숫자가 소수가 아닌 경우에는 마치 캐시되지 않은 것처럼 결과가 나온다
+      assert(isPrime.answers[12] !== undefined, "The answer was cached!" );         // 이런 식으로 정의하는게 더 의미를 이해하기 쉽다.
 
     </script>
   </body>

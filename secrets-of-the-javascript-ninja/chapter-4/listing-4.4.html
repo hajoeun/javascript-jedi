@@ -12,6 +12,7 @@
       var ninja = {
         chirp: function(n) {
           return n > 1 ? ninja.chirp(n - 1) + "-chirp" : "chirp";
+//          return n > 1 ? this.chirp(n - 1) + "-chirp" : "chirp";  // this로 참조해야 정확하게 동작한다.
         }
       };
 

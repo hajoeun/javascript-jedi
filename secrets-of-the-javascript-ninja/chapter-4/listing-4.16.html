@@ -34,14 +34,10 @@
         return ret;
       });
 
-      assert(ninjas.find().length == 3,                                //#5
-             "Found all ninjas");
-      assert(ninjas.find("Sam").length == 1,
-             "Found ninja by first name");
-      assert(ninjas.find("Dean", "Edwards").length == 1,
-             "Found ninja by first and last name");
-      assert(ninjas.find("Alex", "Russell", "Jr") == null,
-             "Found nothing");
+      assert(ninjas.find().length == 3, "Found all ninjas");          //#5
+      assert(ninjas.find("Sam").length == 1, "Found ninja by first name");
+      assert(ninjas.find("Dean", "Edwards").length == 1, "Found ninja by first and last name");
+      assert(ninjas.find("Alex", "Russell", "Jr") == null, "Found nothing");
 
     </script>
   </body>

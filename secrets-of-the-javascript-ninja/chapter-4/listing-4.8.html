@@ -10,10 +10,10 @@
     <script type="text/javascript">
 
       var store = {
-        nextId: 1,                                        //#1
+        nextId: 1,                                        //#1 0이되면 fn.id를 검사하는 과정에서 false가 반환되면서 객체를 덮어쓰는 문제가 발생할 수 있다.
         cache: {},                                        //#2
         add: function(fn) {                               //#3
-          if (!fn.id) {                                   //#3
+          if (fn.id === undefined) {                      //#3 굳이 id를 0으로 사용하고 싶으면 이렇게 undefined를 사용하는 방법도 있다.
             fn.id = store.nextId++;                       //#3
             return !!(store.cache[fn.id] = fn);           //#3
           }                                               //#3
@@ -22,10 +22,8 @@
 
       function ninja(){}
 
-      assert(store.add(ninja),                            //#4
-             "Function was safely added.");               //#4
-      assert(!store.add(ninja),                           //#4
-             "But it was only added once.");              //#4
+      assert(store.add(ninja), "Function was safely added.");               //#4
+      assert(!store.add(ninja), "But it was only added once.");             //#4
 
     </script>
   </body>
