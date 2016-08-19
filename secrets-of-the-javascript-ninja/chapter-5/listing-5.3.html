@@ -11,7 +11,7 @@
       var outerValue = 'ninja';
       var later;
 
-      function outerFunction() {
+      (function outerFunction() {
         var innerValue = 'samurai';
 
         function innerFunction(paramValue) {                       //#1
@@ -22,13 +22,12 @@
         }
 
         later = innerFunction;
-      }
+      })();
 
       assert(!tooLate,"Outer can't see the ronin");                //#3
 
       var tooLate = 'ronin';                                       //#4
 
-      outerFunction();
       later('wakizashi');                                          //#5
 
     </script>

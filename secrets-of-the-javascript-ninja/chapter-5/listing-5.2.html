@@ -12,7 +12,7 @@
 
       var later;                                                   //#1
 
-      function outerFunction() {
+      (function outerFunction() {
         var innerValue = 'samurai';                                //#2
 
         function innerFunction() {                                 //#3
@@ -21,11 +21,9 @@
         }                                                          //#3
 
         later = innerFunction;                                     //#4
-      }
+      })();
 
-      outerFunction();                                             //#5
-
-      later();                                                     //#6
+      later();                                                     //#5
 
     </script>
   </body>
