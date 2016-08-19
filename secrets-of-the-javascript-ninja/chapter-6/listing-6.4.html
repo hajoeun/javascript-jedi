@@ -9,7 +9,7 @@
     <script type="text/javascript">
 
       function Ninja(){
-        this.swung = true;
+        this.swung = false; // false로 설정하는게 문제를 이해하는데 더 효과적이다.
         this.swingSword = function(){                           //#1
           return !this.swung;
         };
