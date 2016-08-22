@@ -1,19 +1,18 @@
 (function() {
   var initializing = false,
-      superPattern =  // Determine if functions can be serialized
-        /xyz/.test(function() { xyz; }) ? /\b_super\b/ : /.*/;       //#1
+      // 함수 직렬화 검사
+      superPattern =  /xyz/.test(function() { xyz; }) ? /\b_super\b/ : /.*/;
 
-  // Creates a new Class that inherits from this class
+  // Object에 subClass() 메서드를 추가한다.
   Object.subClass = function(properties) {                           //#2
     var _super = this.prototype;
 
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
+    // 상위 클래스의 인스턴스를 만든다.
     initializing = true;                                              //#3
     var proto = new this();                                           //#3
     initializing = false;                                             //#3
 
-    // Copy the properties over onto the new prototype
+    // 프로퍼티들을 프로토타입에 복사한다.
     for (var name in properties) {                                    //#4
       // Check if we're overwriting an existing function
       proto[name] = typeof properties[name] == "function" &&

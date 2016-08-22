@@ -19,7 +19,7 @@
           document.getElementsByTagName(type || "*");
 
         var regex =                                            //#3
-          new RegExp("(^|\\s)" + className + "(\\s|$)");
+          new RegExp("(^|\\s)" + className + "(\\s|$)");      // 문자열 내에서는 역슬래시를 두번 사용해야하는 것에 유의할 것!
 
         var results = [];                                      //#4
 
