@@ -1,0 +1,26 @@
+body {
+  color: #fff;
+  background: #000;
+}
+
+#title {
+  font-size: 70px;
+  padding-left: 30px;
+  width: 450px;
+}
+
+#data {
+  color: #000;
+  background: #fff;
+  font-size: 34px;
+  width: 450px;
+  margin-top: 50px;
+  padding: 0 0 0 123.75px;;
+  border: 10px solid orange;
+  border-radius: 100px;
+}
+
+#contents {
+  margin-top: 50px;
+  width: 500px;
+}
