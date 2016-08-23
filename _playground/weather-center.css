@@ -7,20 +7,21 @@ body {
   font-size: 70px;
   padding-left: 30px;
   width: 450px;
+  border-bottom: 8px solid orange;
 }
 
 #data {
-  color: #000;
-  background: #fff;
   font-size: 34px;
+  padding-top: 10px;
+  padding-left: 123.75px;
+  margin-top: 5px;
   width: 450px;
-  margin-top: 50px;
-  padding: 0 0 0 123.75px;;
-  border: 10px solid orange;
-  border-radius: 100px;
+  border-top: 3px solid orange;
 }
 
 #contents {
+  color: #000;
+  background: #fff;
   margin-top: 50px;
   width: 500px;
 }
