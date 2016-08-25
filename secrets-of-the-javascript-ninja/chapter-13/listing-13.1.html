@@ -7,7 +7,7 @@
     <link href="../styles/assert.css" rel="stylesheet" type="text/css">
     <script type="text/javascript">
 
-      if (document.addEventListener) {                           //#1
+      if (document.addEventListener) {                           //#1 DOM 모델을 검사한다.
 
         this.addEvent = function (elem, type, fn) {              //#2
           elem.addEventListener(type, fn, false);
@@ -19,7 +19,7 @@
         };
 
       }
-      else if (document.attachEvent) {                          //#4
+      else if (document.attachEvent) {                          //#4 IE 모델을 검사한다.
 
         this.addEvent = function (elem, type, fn) {             //#5
           var bound = function () {
@@ -34,27 +34,13 @@
         };
 
       }
-
-      addEvent(window, "load", function () {                       //#1
-
-        var elems = document.getElementsByTagName("div");          //#2
-
-        for (var i = 0; i < elems.length; i++) (function (elem) {
-          var handler = addEvent(elem, "click", function () {      //#3
-            this.style.backgroundColor =
-                this.style.backgroundColor=='' ? 'green' : '';
-            removeEvent(elem, "click", handler);                   //#4
-          });
-        })(elems[i]);
-
-      });
-
     </script>
+    <script type="text/javascript" src="listing-13.2.js"></script>
   </head>
   <body>
 
-    <div title="Click me">私をクリック</div>
-    <div title="but only once">一度だけ</div>
+    <div title="Click me">클릭하세요.</div>
+    <div title="but only once">딱, 한번만</div>
 
   </body>
 </html>
