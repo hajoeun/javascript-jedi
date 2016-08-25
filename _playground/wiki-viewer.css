@@ -1,0 +1,29 @@
+body {
+  color: #ffffff;
+  background-color: #002535
+}
+
+textarea:focus, input:focus {
+  outline: none;
+}
+
+#msg-box {
+  text-align: center;
+  font-size: 17px;
+  margin: 10px;
+}
+
+#input-bar {
+  background-color: rgba(255,255,255,0);
+  border-color: transparent;
+  border-radius: 5px;
+  width: 270px;
+  margin-left: 12px;
+}
+
+#search-bar {
+  background-color: rgba(255,255,255,0);
+  text-align: center;
+  border:5px solid orange;
+  border-radius: 20px;
+}
