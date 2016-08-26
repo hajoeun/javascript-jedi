@@ -12,7 +12,10 @@
   <div class="container">
     <div class="contents" style="padding-top: 30%;">
       <div id="msg-box">아래를 클릭해 검색을 시작하세요</div>
-      <div class="center-block" id="search-bar" style="border-radius: 20px; width:40px; height:40px;" onclick="barAnimate()"></div>
+      <div class="center-block" id="search-bar" style="border-radius: 20px; width:40px; height:40px;" onclick="barAnimate()">
+        <input type="text" id="input-bar" style="display: none;">
+        <span class="glyphicon glyphicon-remove" id="toggle-btn" style="display: none;"></span>
+      </div>
     </div>
   </div>
 
