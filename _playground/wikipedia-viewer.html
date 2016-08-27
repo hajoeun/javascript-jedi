@@ -10,12 +10,14 @@
 </head>
 <body>
   <div class="container">
-    <div class="contents" style="padding-top: 30%;">
+    <div class="contents" style="padding-top: 300px;">
       <div id="msg-box">아래를 클릭해 검색을 시작하세요</div>
-      <div class="center-block" id="search-bar" style="border-radius: 20px; width:40px; height:40px;" onclick="barAnimate()">
+      <div id="random-msg-box" style="display:inherit">혹은 <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">랜덤</a>으로 검색하세요</div>
+      <div class="center-block" id="search-bar" style="border-radius: 20px; width:40px; height:40px;" onclick="barAnimate.show()">
         <input type="text" id="input-bar" style="display: none;">
         <span class="glyphicon glyphicon-remove" id="toggle-btn" style="display: none;"></span>
       </div>
+      <div class="list-group"></div>
     </div>
   </div>
 
