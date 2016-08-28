@@ -5,10 +5,35 @@ iBar = document.getElementById('input-bar'), // 인풋바(실제 검색창)
 mBox = document.getElementById('msg-box'), // 메세지 박스
 con = document.getElementsByClassName('contents')[0];
 
+sBar.setAttribute('onclick', 'barAnimate.show()'); // 검색바에 애니메이션을 준다.
+
+$('#input-bar').keypress(function(e) {
+  if(e.keyCode === 13) { // 엔터키를 누르면
+    wikiSearch($('#input-bar')[0].value); // input에 저장된 데이터를 위키에 검색한다.
+    barAnimate.up();
+  }
+});
+
+// 검색 함수
+var wikiSearch = function(keyword) {
+  $.ajax({
+    url:'https://ko.wikipedia.org/w/api.php?action=opensearch&search='+ keyword +'&format=json&imlimit=20',
+    dataType: 'jsonp',
+    type: 'GET',
+    success: function(data){
+      dataCtr.main(data);
+    }
+  });
+};
+
 // 바의 애니메이션을 담당하는 객체
 var barAnimate = {
   show:  function() { // bar가 나타나는 애니메이션 부분
-    if(iBar.style.display === "none") {
+    if(!sBar.style.width) {
+      sBar.style.borderRadius = "20px";
+      sBar.style.width = sBar.style.height = "40px";
+    }
+    if(!iBar.style.display) {
       var width = parseInt(sBar.style.width) + 10; // 스타일은 단위가 함께 표시되는데 여기서 숫자만 남기기 위해서 parseInt 메서드를 사용해서 숫자만 남기고 그 값을 갱신한다.
 
       if (width < 300) { // 바의 길이가 300이 되지 않았으면
@@ -20,9 +45,9 @@ var barAnimate = {
     }
   },
   hide: function() { // bar가 사라지는 애니메이션 부분, 위의 메서드와 반대로 행동한다.
-    if (iBar.style.display != "none") {
+    if (iBar.style.display) {
       var width = parseInt(sBar.style.width) - 10;
-      tBtn.style.display = "none";
+      tBtn.style.display = "";
 
       if (width > 30) {
         sBar.style.width = width + "px";
@@ -34,6 +59,7 @@ var barAnimate = {
     if (dataCtr.item[0]) dataCtr.delete(null, barAnimate.down);
   },
   up: function() { // bar의 높이를 올리는 애니메이션 부분
+    if (!con.style.paddingTop) con.style.paddingTop = "300px";
     var pos = parseInt(con.style.paddingTop) - 10;
     if (pos > 10) {
       con.style.paddingTop = pos + "px";
@@ -61,30 +87,10 @@ var toggle = {
   },
   off: function() {
     iBar.value = "";
-    tBtn.style.display = iBar.style.display = "none"; // 보이는 상태였다면, 보이지 않도록 바꿔주고
+    tBtn.style.display = iBar.style.display = ""; // 보이는 상태였다면, 보이지 않도록 바꿔주고
     sBar.setAttribute('onclick', 'barAnimate.show()'); // 검색바에 애니메이션을 준다.
     mBox.innerText = this.msg[0];
   }
-};
-
-$('#input-bar').keypress(function(e) {
-  if(e.keyCode === 13) { // 엔터키를 누르면
-    wikiSearch($('#input-bar')[0].value); // input에 저장된 데이터를 위키에 검색한다.
-    barAnimate.up();
-  }
-});
-
-
-// 검색 함수
-var wikiSearch = function(keyword) {
-  $.ajax({
-    url:'https://ko.wikipedia.org/w/api.php?action=opensearch&search='+ keyword +'&format=json&imlimit=20',
-    dataType: 'jsonp',
-    type: 'GET',
-    success: function(data){
-      dataCtr.main(data);
-    }
-  });
 };
 
 // 검색 결과 보여주기 함수

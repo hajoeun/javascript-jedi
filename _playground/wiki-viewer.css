@@ -7,12 +7,22 @@ textarea:focus, input:focus {
   outline: none;
 }
 
+.contents {
+  padding-top: 300px;
+}
+
 .list-group {
   padding-top: 10px;
 }
 
 .list-group-item {
   margin: 15px;
+  border-radius: 5px;
+}
+
+.list-group-item:hover {
+  border-left-color: orange;
+  border-left-width: 5px;
 }
 
 #msg-box {
@@ -23,6 +33,7 @@ textarea:focus, input:focus {
 #random-msg-box {
   text-align: center;
   font-size: 12px;
+  display: inherit;
 }
 
 #input-bar {
@@ -30,6 +41,7 @@ textarea:focus, input:focus {
   border-color: transparent;
   border-radius: 5px;
   width: 85%;
+  display: none;
 }
 
 #search-bar {
@@ -39,10 +51,14 @@ textarea:focus, input:focus {
   border-radius: 20px;
   padding-top: 1.5px;
   margin-top: 10px;
+  border-radius: 20px;
+  width:40px;
+  height:40px;
 }
 
 #toggle-btn {
   color: orange;
+  display: none;
 }
 
 #random-btn {
