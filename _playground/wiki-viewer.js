@@ -59,18 +59,20 @@ var barAnimate = {
     if (dataCtr.item[0]) dataCtr.delete(null, barAnimate.down);
   },
   up: function() { // bar의 높이를 올리는 애니메이션 부분
-    if (!con.style.paddingTop) con.style.paddingTop = "300px";
-    var pos = parseInt(con.style.paddingTop) - 10;
-    if (pos > 10) {
-      con.style.paddingTop = pos + "px";
+    if (!con.style.height) con.style.height = "15%";
+    var pos = parseInt(con.style.height) + 5;
+    if (pos < 105) {
+      con.style.height = pos + "%";
       setTimeout(barAnimate.up, 10);
+    } else {
+      con.style.top = "10px";
     }
     document.getElementById('random-msg-box').style.display = "none";
   },
   down: function() { // bar의 높이를 낮추는 애니메이션 부분
-    var pos = parseInt(con.style.paddingTop) + 10;
-    if (pos < 300) {
-      con.style.paddingTop = pos + "px";
+    var pos = parseInt(con.style.height) - 5;
+    if (pos > 15) {
+      con.style.height = pos + "%";
       setTimeout(barAnimate.down, 10);
     }
     document.getElementById('random-msg-box').style.display = "inherit";
