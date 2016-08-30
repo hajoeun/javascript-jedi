@@ -61,11 +61,9 @@ var barAnimate = {
   up: function() { // bar의 높이를 올리는 애니메이션 부분
     if (!con.style.height) con.style.height = "15%";
     var pos = parseInt(con.style.height) + 5;
-    if (pos < 105) {
+    if (pos < 100) {
       con.style.height = pos + "%";
       setTimeout(barAnimate.up, 10);
-    } else {
-      con.style.top = "10px";
     }
     document.getElementById('random-msg-box').style.display = "none";
   },
