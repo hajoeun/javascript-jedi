@@ -25,10 +25,14 @@ var channels = (function() {
       .then(function(data) { // 성공 (resolve)
         state[channel].logo = data.logo;
         load(channel, 0); // 여기서 0은 refresh의 0과 같은 의미
-      }, function (reason) { console.error('Logo image could\'t loaded', reason); }); // 거절(reject)
+      },
+      function (reason) { console.error('Logo image could\'t loaded', reason); } // 거절(reject)
+    );
 
 
-    }, function(reason) { console.error('Channel state could\'t loaded', reason); }); // 첫번째 프로미스 객체가 실패(거절)하면 에러를 출력한다.
+    },
+    function(reason) { console.error('Channel state could\'t loaded', reason); } // 첫번째 프로미스 객체가 실패(거절)하면 에러를 출력한다.
+    );
   };
 
   function httpGet(url) {
