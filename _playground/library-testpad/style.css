@@ -1,0 +1,41 @@
+html, body {
+  color: grey;
+  background-color: #202020;
+  font-family: Hack, monospace;
+}
+
+span {
+  color: #70FF70;
+}
+
+#title {
+  text-align: center;
+  color: #FF6060;
+}
+
+#code {
+  color: #FAFAFA;
+  border: 3px solid ;
+  border-color: #70FF70 #70FF70 #FF6060 #FF6060;
+  border-radius: 10px;
+  background-color: #202020;
+  margin: 3% 10% 0 10%;
+  padding: 10px;
+  height: 80%;
+  width: 80%;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+#log {
+  color: #70FF70;
+  border: 3px solid #FF6060;
+  border-color: #FF6060 #FF6060 #70FF70 #70FF70;
+  border-radius: 10px;
+  margin: 0 10% 10% 10%;
+  padding: 10px;
+  height: 80%;
+  width: 80%;
+}
