@@ -8,6 +8,10 @@ span {
   color: #70FF70;
 }
 
+error {
+  color: #FF6060;
+}
+
 #title {
   text-align: center;
   color: #FF6060;
