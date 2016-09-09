@@ -38,7 +38,7 @@ var barAnimate = {
 
       if (width < 300) { // 바의 길이가 300이 되지 않았으면
         sBar.style.width = width + "px"; // 길이를 키운다.
-        setTimeout(arguments.callee, 10); // 재귀로 다시 호출해서 같은 작업을 반복한다.
+        _.delay(arguments.callee, 10); // 재귀로 다시 호출해서 같은 작업을 반복한다.
       } else {
         toggle.on(); // 위의 작업이 완료되면 토글함수를 호출해서 내부의 인풋 엘리먼트와 버튼을 생성한다.
       }
@@ -51,7 +51,7 @@ var barAnimate = {
 
       if (width > 30) {
         sBar.style.width = width + "px";
-        setTimeout(arguments.callee, 10);
+        _.delay(arguments.callee, 10);
       } else {
         toggle.off();
       }
@@ -63,7 +63,7 @@ var barAnimate = {
     var pos = parseInt(con.style.height) + 5;
     if (pos < 100) {
       con.style.height = pos + "%";
-      setTimeout(barAnimate.up, 10);
+      _.delay(barAnimate.up, 20);
     }
     document.getElementById('random-msg-box').style.display = "none";
   },
@@ -71,7 +71,7 @@ var barAnimate = {
     var pos = parseInt(con.style.height) - 5;
     if (pos > 15) {
       con.style.height = pos + "%";
-      setTimeout(barAnimate.down, 10);
+      _.delay(barAnimate.down, 20);
     }
     document.getElementById('random-msg-box').style.display = "inherit";
   }
@@ -149,14 +149,14 @@ var dataCtr = {
     var pos = parseInt(elem.style.top) - 20;
     if (pos > 0) {
       elem.style.top = pos + "px";
-      setTimeout(dataCtr.in(elem), 10);
+      _.delay(dataCtr.in, 10, elem);
     }
   },
   out: function(elem) {
     var pos = parseInt(elem.style.left) + 20;
     if (pos < 1000) {
       elem.style.left = pos + "px";
-      setTimeout(dataCtr.out(elem), 10);
+      _.delay(dataCtr.out, 10, elem);
     } else {
       elem.remove();
     }
