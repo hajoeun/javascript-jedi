@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>partial.js - test</title>
+</head>
+<body>
+
+<script src="partial.js"></script>
+
+<script>
+  var res1 = _.map([1,2,3], function(v) {
+    return v + 10;
+  });
+
+  var res2 = [];
+  _.each([1,2,3], function(v) {
+    res2.push(v);
+  });
+
+  var res3 = [];
+  _.each({a:1, b:2, c:3}, function(v) {
+    res3.push(v);
+  });
+
+  var res4 = _.reject([1,2,3,4,5,6,7], function(v) {
+    return v < 4;
+  });
+
+  var res5 = _.reject({a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7}, function(v) {
+    return v < 4;
+  });
+
+  console.log("--------------[TEST 1]-----------------");
+  console.log(res1);
+
+  console.log("--------------[TEST 2]-----------------");
+  console.log(res2);
+
+  console.log("--------------[TEST 3]-----------------");
+  console.log(res3);
+
+  console.log("--------------[TEST 4]-----------------");
+  console.log(res4);
+
+  console.log("--------------[TEST 5]-----------------");
+  console.log(res5);
+</script>
+
+</body>
+</html>
