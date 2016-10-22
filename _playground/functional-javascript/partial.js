@@ -191,6 +191,29 @@
     }
   };
 
+  _.filter = function(list, predicate) {
+    var len = list.length, key, i = 0, new_arr = [];
+
+    if (len) {
+      for (i; i < len; i++) {
+        if (predicate(list[i], i, list)) {
+          new_arr.push(list[[i]]);
+        }
+      }
+      return new_arr;
+    }
+
+    key = _.keys(list);
+    len = key.length;
+
+    for (i; i < len; i++) {
+      if (predicate(list[key[i]], key[i], list)) {
+        new_arr.push(list[key[i]]);
+      }
+    }
+    return new_arr;
+  };
+
   _.reject = function(list, predicate) {
     var len = list.length, key, i = 0, new_arr = [];
 
@@ -214,15 +237,27 @@
     return new_arr;
   };
 
-  _.find = function(predicate) {
-    return function(ary) {
-      var l = ary.length;
-      for(var i=0; i<l; i++) {
-        if (tmp = predicate(ary[i])) return tmp;
-      }
+  _.find = function(list ,predicate) {
+    var len = list.length, key, i = 0;
 
+    if (len) {
+      for (i; i < len; i++) {
+        if (predicate(list[i], i, list)) {
+          return list[i];
+        }
+      }
+      return undefined;
     }
 
+    key = _.keys(list);
+    len = key.length;
+
+    for (i; i < len; i++) {
+      if (predicate(list[key[i]], key[i], list)) {
+        return list[key[i]];
+      }
+    }
+    return undefined;
   };
 
 
