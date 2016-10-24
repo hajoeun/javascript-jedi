@@ -139,127 +139,98 @@
     return (arguments.length < 2) ? arg : ((arguments._mr = true) && arguments);
   };
 
-  _.map = function(data, iteratee) { // ary, obj
-    var l = data.length;
-    var res = Array(l);
-    for (var i=0; i<l; i++) {
-      res[i] = (iteratee(data[i], i, data));
+  _.map = function(list, iteratee) {
+    var new_arr = [];
+    if (_.isArrayLike(list)) { // 배열인 경우
+      for (var i = 0, len = list.length; i < len; i++)
+        new_arr[new_arr.length] = iteratee(list[i], i, list);
+    } else {
+      for (var key in list) if (list.hasOwnProperty(key))
+        new_arr.push(iteratee(list[key], key, list));
     }
+    return new_arr;
   };
 
+  // _.each = function(list, iteratee) {
+  //   if (_.isArrayLike(list)) { // 배열 및 유사 배열인 경우
+  //     for (var i = 0, len = list.length; i < len; i++)
+  //       iteratee(list[i], i, list);
+  //   } else {
+  //     for (var key in list)
+  //       if (list.hasOwnProperty(key))
+  //         iteratee(list[key], key, list);
+  //   }
+  //   return list;
+  // };
 
-  // 객체, 배열 경우를 나눠서
   _.each = function(list, iteratee) {
-    var len = list.length, key, i = 0;
-
-    if (len) { // 배열인 경우
-      for (i; i < len; i++) {
+    if (_.isArrayLike(list)) { // 배열 및 유사 배열인 경우
+      for (var i = 0; list[i]; i++)
         iteratee(list[i], i, list);
-      }
-      return list;
-    }
-
-    // 객체인 경우
-    key = _.keys(list);
-    len = key.length;
-
-    for (i; i < len; i++) {
-      iteratee(list[key[i]], key[i], list);
+    } else {
+      for (var key in list)
+        if (list.hasOwnProperty(key))
+          iteratee(list[key], key, list);
     }
     return list;
   };
 
-
-  //  // 객체, 배열 통합 version
-  // _.each = function(list, iteratee) {
-  //   var key = _.keys(list);
-  //   var len = key.length;
-  //
-  //   for (var i = 0; i < len; i += 1) {
-  //     iteratee(list[key[i]], key[i], list);
-  //   }
-  // };
-
-  _.filter = function(predicate) {
-    return function(ary) {
-      var l = ary.length;
-      var res = [];
-      var tmp;
-      for(var i=0; i<l; i++) {
-        if (tmp = predicate(ary[i])) res.push(tmp);
-      }
-    }
-  };
-
   _.filter = function(list, predicate) {
-    var len = list.length, key, i = 0, new_arr = [];
+    var new_arr = [];
 
-    if (len) {
-      for (i; i < len; i++) {
-        if (predicate(list[i], i, list)) {
+    if (_.isArrayLike(list)) {
+      for (var i = 0; list[i]; i++)
+        if (predicate(list[i], i, list))
           new_arr.push(list[[i]]);
-        }
-      }
-      return new_arr;
+    } else {
+      for (var key in list)
+        if (list.hasOwnProperty(key) && predicate(list[key], key, list))
+          new_arr.push(list[key]);
     }
 
-    key = _.keys(list);
-    len = key.length;
-
-    for (i; i < len; i++) {
-      if (predicate(list[key[i]], key[i], list)) {
-        new_arr.push(list[key[i]]);
-      }
-    }
     return new_arr;
   };
 
   _.reject = function(list, predicate) {
-    var len = list.length, key, i = 0, new_arr = [];
+    var new_arr = [];
 
-    if (len) {
-      for (i; i < len; i++) {
-        if (!predicate(list[i], i, list)) {
+    if (_.isArrayLike(list)) {
+      for (var i = 0, len = list.length; i < len; i++)
+        if (!predicate(list[i], i, list))
           new_arr.push(list[[i]]);
-        }
-      }
-      return new_arr;
+    } else {
+      for (var key in list)
+        if (list.hasOwnProperty(key) && !predicate(list[key], key, list))
+          new_arr.push(list[key]);
     }
 
-    key = _.keys(list);
-    len = key.length;
-
-    for (i; i < len; i++) {
-      if (!predicate(list[key[i]], key[i], list)) {
-        new_arr.push(list[key[i]]);
-      }
-    }
     return new_arr;
   };
 
-  _.find = function(list ,predicate) {
-    var len = list.length, key, i = 0;
 
-    if (len) {
-      for (i; i < len; i++) {
-        if (predicate(list[i], i, list)) {
+  _.find = function(list, predicate) {
+    if (_.isArrayLike(list)) {
+      for (var i = 0, len = list.length; i < len; i++)
+        if (predicate(list[i], i, list))
           return list[i];
-        }
-      }
-      return undefined;
-    }
-
-    key = _.keys(list);
-    len = key.length;
-
-    for (i; i < len; i++) {
-      if (predicate(list[key[i]], key[i], list)) {
-        return list[key[i]];
-      }
+    } else {
+      for (var key in list)
+        if (list.hasOwnProperty(key) && predicate(list[key], key, list))
+          return list[key];
     }
     return undefined;
   };
 
+  _.find = function(list, predicate) {
+    if (_.isArrayLike(list)) {
+      for (var i = 0; !predicate(list[i], i, list); i++) {}
+      return list[i];
+    } else {
+      for (var key in list)
+        if (list.hasOwnProperty(key) && predicate(list[key], key, list))
+          return list[key];
+    }
+  };
 
 }(typeof global == 'object' && global.global == global && (global.G = global) || window);
 
