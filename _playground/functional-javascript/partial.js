@@ -457,14 +457,40 @@
   //   return list;
   // };
 
-  _.each = function(list, iteratee) {
+  _.each = function(list, iteratee, a1, a2, a3, a4, a5) {
     if (_.isArrayLike(list)) { // 배열 및 유사 배열인 경우
-      for (var i = 0; list[i]; i++)
-        iteratee(list[i], i, list);
+      for (var i = 0, len = list.length; i < len; i++)
+        iteratee(list[i], i, list, a1, a2, a3, a4, a5);
     } else {
       for (var key in list)
         if (list.hasOwnProperty(key))
-          iteratee(list[key], key, list);
+          iteratee(list[key], key, list, a1, a2, a3, a4, a5);
+    }
+    return list;
+  };
+
+  // 데이터 다루기
+  _.each = function(list, iteratee) {
+    if (arguments.length < 3) { // 추가 데이터가 없을 경우
+      if (_.isArrayLike(list)) {
+        for (var i = 0, len = list.length; i < len; i++)
+          iteratee(list[i], i, list);
+      } else {
+        for (var key in list)
+          if (list.hasOwnProperty(key))
+            iteratee(list[key], key, list);
+      }
+    } else { // 추가 데이터를 보내야 할 경우
+      var data = _.rest(arguments, 2);
+
+      if (_.isArrayLike(list)) {
+        for (var i = 0, len = list.length; i < len; i++)
+          iteratee.apply(null, [list[i], i, list].concat(data));
+      } else {
+        for (var key in list)
+          if (list.hasOwnProperty(key))
+            iteratee.apply(null, [list[key], key, list].concat(data));
+      }
     }
     return list;
   };
@@ -524,6 +550,18 @@
         if (list.hasOwnProperty(key) && predicate(list[key], key, list))
           return list[key];
     }
+  };
+
+  _.reduce = function(list, predicate) {
+    if (_.isArrayLike(list)) {
+      for (var i = 1, len = list.length, res = list[0]; i < len; i++)
+        res = predicate(res, list[i], i, list);
+    } else {
+      var keys = _.keys(list);
+      for (var i = 1, len = keys.length, res = list[keys[0]]; i < len; i++)
+        res = predicate(res, list[keys[i]], i, list);
+    }
+    return res;
   };
 
   _.find_i = _.find_idx = _.findIndex = function() {
