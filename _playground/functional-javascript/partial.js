@@ -9,7 +9,7 @@
   window._ ? window.__ = _ : window._ = _;
   var ___ = window.___ = ___;
 
-  /* Partail */
+  /* Partial */
   function _(fn) {
     fn = Lambda(fn);
     var args1 = [], args3, len = arguments.length, ___idx = len;
@@ -373,207 +373,214 @@
   });
 
   /* Notification, Event */
-  /*!function(B, C, notices) {
-   C.noti = C.Noti = C.notice =  {
-   on: on,
-   once: B(X,X,X, true, on),
-   off: off,
-   emit: emit,
-   emitAll: emitAll
-   };
+  !function(_, notices) {
+    _.noti = _.Noti = _.notice =  {
+      on: on,
+      once: _(on, _, _ , _, true),
+      off: off,
+      emit: emit,
+      emitAll: emitAll
+    };
 
-   B.noti = B.Noti = B.notice = {
-   on: function() {
-   var args = arguments;
-   return function(func) { return A(args.length === 3 ? args :  C.isFunction(func) ? C.toArray(args).concat(func) : args, on); };
-   },
-   once: function(func) {
-   var args = arguments;
-   return function(func) { return A(C.toArray(args.length === 3 ? args :  C.isFunction(func) ? C.toArray(args).concat(func) : args).concat([true]), on) };
-   },
-   off: function() { return B.apply(null, C.toArray(arguments).concat(off)); },
-   emit: function() {
-   var args = arguments;
-   return function(args2) { return A(args.length == 3 ? args : C.isArray(args2) ? C.toArray(args).concat([args2]) : args, emit) };
-   },
-   emitAll: function() {
-   var args = arguments;
-   return function(args2) { return A(args.length == 2 ? args : C.isArray(args2) ? C.toArray(args).concat([args2]) : args, emitAll) };
-   }
-   }; B.noti.emit_all = emitAll;
+    function on(name1, name2, func, is_once) {
+      var _notice = notices[name1];
+      func.is_once = !!is_once;
+      if (!_notice) _notice = notices[name1] = {};
+      (_notice[name2] = _notice[name2] || []).push(func);
+      return func;
+    }
 
-   function on(name1, name2, func, is_once) {
-   var _notice = notices[name1];
-   func.is_once = !!is_once;
-   if (!_notice) _notice = notices[name1] = {};
-   (_notice[name2] = _notice[name2] || []).push(func);
-   return func;
-   }
+    function off(name1, n2_or_n2s) {
+      var _notice = notices[name1];
+      if (arguments.length == 1) _.unset(notices, name1);
+      else if (_notice && arguments.length == 2) each(_.isString(n2_or_n2s) ? [n2_or_n2s] : n2_or_n2s, _(_.unset, _notice));
+    }
 
-   function off(name1, n2_or_n2s) {
-   var _notice = notices[name1];
-   if (arguments.length == 1) C.unset(notices, name1);
-   else if (_notice && arguments.length == 2) each(C.isString(n2_or_n2s) ? [n2_or_n2s] : n2_or_n2s, B(_notice, C.unset));
-   }
+    function emitAll(name1, emit_args) {
+      var key, _notice = notices[name1];
+      if (_notice) for(key in _notice) emit_loop(emit_args, _notice, key);
+    }
 
-   function emitAll(name1, emit_args) {
-   var key, _notice = notices[name1];
-   if (_notice) for(key in _notice) C(_notice, key, emit_loop(emit_args));
-   }
+    function emit(name, keys, emit_args) {
+      !function(_notice, keys) {
+        if (!_notice) return ;
+        if (_.isString(keys)) return emit_loop(emit_args, _notice, keys);
+        if (_.isArray(keys)) each(keys, _(emit_loop, emit_args, _notice));
+      }(notices[name], _.isFunction(keys) ? keys() : keys);
+    }
 
-   function emit(name1, name2, emit_args) {
-   var _notice = notices[name1];
-   if (_notice) C(name2, [
-   IF(C.isFunction, [J(void 0), name2, function(name2) { return C.isString(name2) ? [name2] : name2; }]).ELSEIF(C.isString, J([name2])).ELSE(I),
-   B(X, B([B.all(J(_notice), I), IF([C.val, function(arr) { return arr && arr.length }], emit_loop(emit_args))]), each)
-   ]);
-   }
-
-   function emit_loop(args) { return [B.tap(C.val, B(X, B([I, B(args, X, A)]), each)), function (_n, k) { _n[k] = C.reject(_n[k], B.val('is_once')); }];}
-   }(B, C, {});*/
+    function emit_loop(emit_args, _notice, key) {
+      _.set(_notice, key, _.reject(_notice[key], function(func) {
+        func.apply(null, emit_args);
+        return func.is_once;
+      }));
+    }
+  }(_, {});
 
   /* each - reduce */
-  _.map = function(list, iteratee) {
-    var new_arr = [];
-    if (_.isArrayLike(list)) { // 배열인 경우
-      for (var i = 0, len = list.length; i < len; i++)
-        new_arr[new_arr.length] = iteratee(list[i], i, list);
-    } else {
-      for (var key in list) if (list.hasOwnProperty(key))
-        new_arr.push(iteratee(list[key], key, list));
+  function Iter(iter, args, num) {
+    if (args.length == num) return iter;
+    var args2 = _.rest(args, num);
+    var args3;
+    return function() {
+      if (args3) for (var i = 0, l = arguments.length; i < l; i++) args3[i] = arguments[i];
+      else args3 = _.to_array(arguments).concat(args2);
+      return iter.apply(null, args3);
     }
-    return new_arr;
+  }
+
+  _.map = function(data, iteratee) {
+    iteratee = Iter(iteratee, arguments, 2);
+    if (_.isArrayLike(data))
+      for (var i = 0, l = data.length, res = Array(l); i < l; i++)
+        res[i] = iteratee(data[i], i, data);
+    else
+      for (var keys = _.keys(data), i = 0, l = keys.length, res = Array(l); i < l; i++)
+        res[i] = iteratee(data[keys[i]], keys[i], data);
+    return res;
   };
 
-  // _.each = function(list, iteratee) {
-  //   if (_.isArrayLike(list)) { // 배열 및 유사 배열인 경우
-  //     for (var i = 0, len = list.length; i < len; i++)
-  //       iteratee(list[i], i, list);
-  //   } else {
-  //     for (var key in list)
-  //       if (list.hasOwnProperty(key))
-  //         iteratee(list[key], key, list);
-  //   }
-  //   return list;
-  // };
-
-  _.each = function(list, iteratee, a1, a2, a3, a4, a5) {
-    if (_.isArrayLike(list)) { // 배열 및 유사 배열인 경우
-      for (var i = 0, len = list.length; i < len; i++)
-        iteratee(list[i], i, list, a1, a2, a3, a4, a5);
-    } else {
-      for (var key in list)
-        if (list.hasOwnProperty(key))
-          iteratee(list[key], key, list, a1, a2, a3, a4, a5);
-    }
-    return list;
+  _.each = function(data, iteratee) {
+    iteratee = Iter(iteratee, arguments, 2);
+    if (_.isArrayLike(data))
+      for (var i = 0, l = data.length; i < l; i++)
+        iteratee(data[i], i, data);
+    else
+      for (var keys = _.keys(data), i = 0, l = keys.length; i<l; i++)
+        iteratee(data[keys[i]], keys[i], data);
+    return data;
   };
 
-  // 데이터 다루기
-  _.each = function(list, iteratee) {
-    if (arguments.length < 3) { // 추가 데이터가 없을 경우
-      if (_.isArrayLike(list)) {
-        for (var i = 0, len = list.length; i < len; i++)
-          iteratee(list[i], i, list);
-      } else {
-        for (var key in list)
-          if (list.hasOwnProperty(key))
-            iteratee(list[key], key, list);
-      }
-    } else { // 추가 데이터를 보내야 할 경우
-      var data = _.rest(arguments, 2);
-
-      if (_.isArrayLike(list)) {
-        for (var i = 0, len = list.length; i < len; i++)
-          iteratee.apply(null, [list[i], i, list].concat(data));
-      } else {
-        for (var key in list)
-          if (list.hasOwnProperty(key))
-            iteratee.apply(null, [list[key], key, list].concat(data));
-      }
-    }
-    return list;
-  };
-
-  _.filter = function(list, predicate) {
-    var new_arr = [];
-
-    if (_.isArrayLike(list)) {
-      for (var i = 0; list[i]; i++)
-        if (predicate(list[i], i, list))
-          new_arr.push(list[[i]]);
+  _.filter = function(data, predicate) {
+    predicate = Iter(predicate, arguments, 2);
+    if (_.isArrayLike(data)) {
+      for (var i = 0, l = data.length, res = Array(l); i < l; i++)
+        if (predicate(data[i], i, data)) res.push(data[i]);
     } else {
-      for (var key in list)
-        if (list.hasOwnProperty(key) && predicate(list[key], key, list))
-          new_arr.push(list[key]);
-    }
-
-    return new_arr;
-  };
-
-  _.reject = function(list, predicate) {
-    var new_arr = [];
-
-    if (_.isArrayLike(list)) {
-      for (var i = 0, len = list.length; i < len; i++)
-        if (!predicate(list[i], i, list))
-          new_arr.push(list[[i]]);
-    } else {
-      for (var key in list)
-        if (list.hasOwnProperty(key) && !predicate(list[key], key, list))
-          new_arr.push(list[key]);
-    }
-
-    return new_arr;
-  };
-
-
-  _.find = function(list, predicate) {
-    if (_.isArrayLike(list)) {
-      for (var i = 0, len = list.length; i < len; i++)
-        if (predicate(list[i], i, list))
-          return list[i];
-    } else {
-      for (var key in list)
-        if (list.hasOwnProperty(key) && predicate(list[key], key, list))
-          return list[key];
-    }
-    return undefined;
-  };
-
-  _.find = function(list, predicate) {
-    if (_.isArrayLike(list)) {
-      for (var i = 0; !predicate(list[i], i, list); i++) {}
-      return list[i];
-    } else {
-      for (var key in list)
-        if (list.hasOwnProperty(key) && predicate(list[key], key, list))
-          return list[key];
-    }
-  };
-
-  _.reduce = function(list, predicate) {
-    if (_.isArrayLike(list)) {
-      for (var i = 1, len = list.length, res = list[0]; i < len; i++)
-        res = predicate(res, list[i], i, list);
-    } else {
-      var keys = _.keys(list);
-      for (var i = 1, len = keys.length, res = list[keys[0]]; i < len; i++)
-        res = predicate(res, list[keys[i]], i, list);
+      for (var keys = _.keys(data), i = 0, l = keys.length, res = Array(l); i < l; i++)
+        if (predicate(data[keys[i]], keys[i], data)) res.push(data[keys[i]]);
     }
     return res;
   };
 
-  _.find_i = _.find_idx = _.findIndex = function() {
+  _.reject = function(data, predicate) {
+    predicate = Iter(predicate, arguments, 2);
+    if (_.isArrayLike(data)) {
+      for (var i = 0, l = data.length, res = Array(l); i < l; i++)
+        if (!predicate(data[i], i, data)) res.push(data[i]);
+    } else {
+      for (var keys = _.keys(data), i = 0, l = keys.length, res = Array(l); i < l; i++)
+        if (!predicate(data[keys[i]], keys[i], data)) res.push(data[keys[i]]);
+    }
+    return res;
   };
-  _.find_k = _.find_key = _.findKey = function() {
-  };
-  _.every = function() {};
-  _.some = function() {};
-  _.uniq = function() {};
-  _.all = function() {};
-  _.spread = function() {};
 
+  _.find = function(data, predicate) {
+    predicate = Iter(predicate, arguments, 2);
+    if (_.isArrayLike(data)) {
+      for (var i = 0, l = data.length; i < l; i++)
+        if (predicate(data[i], i, data)) return data[i];
+    } else {
+      for (var keys = _.keys(data), i = 0, l = keys.length; i < l; i++)
+        if (predicate(data[keys[i]], keys[i], data)) return data[keys[i]];
+    }
+  };
+
+  /* memo 있는 버전 */
+  _.reduce = function(data, predicate, memo) {
+    predicate = Iter(predicate, arguments, 3);
+    if (_.isArrayLike(data)) {
+      for (var res = memo || 0, i = 0, l = data.length; i < l; i++)
+        res = predicate(res, data[i], i, data);
+    } else {
+      for (var res = memo || 0, keys = _.keys(data), i = 0, l = keys.length; i < l; i++)
+        res = predicate(res, data[keys[i]], i, data);
+    }
+    return res;
+  };
+
+  _.find_i = _.find_idx = _.findIndex = function(ary, predicate) {
+    for (var i = 0, l = ary.length; i < l; i++)
+      if (predicate(ary[i], i, ary)) return i;
+    return -1;
+  };
+
+  _.find_k = _.find_key = _.findKey = function(obj, predicate) {
+    for (var keys = _.keys(obj), key, i = 0, l = keys.length; i < l; i++)
+      if (predicate(obj[key = keys[i]], key, obj)) return key;
+  };
+
+  _.every = function(data, predicate) {
+    predicate = Iter(predicate, arguments, 2);
+    if (_.isArrayLike(data)) {
+      for (var i = 0, l = data.length; i < l; i++)
+        if (!predicate(data[i], i, data)) return false;
+    } else {
+      for (var keys = _.keys(data), i = 0, l = keys.length; i < l; i++)
+        if (!predicate(data[keys[i]], keys[i], data)) return false;
+    }
+    return true;
+  };
+
+  _.some = function(data, predicate) {
+    predicate = Iter(predicate, arguments, 2);
+    if (_.isArrayLike(data)) {
+      for (var i = 0, l = data.length; i < l; i++)
+        if (predicate(data[i], i, data)) return true;
+    } else {
+      for (var keys = _.keys(data), i = 0, l = keys.length; i < l; i++)
+        if (predicate(data[keys[i]], keys[i], data)) return true;
+    }
+    return false;
+  };
+
+  // 객체['key']
+  _.uniq = function(ary, iteratee) {
+    var res = [], cmp = iteratee ? _.map(ary, iteratee) : ary, tmp = {};
+
+    for (var i = 0, l = ary.length; i < l; i++) {
+      if (!tmp[cmp[i]]) { tmp[cmp[i]] = true; res.push(ary[i]); }
+    }
+    return res;
+  };
+
+  // indexOf()
+  _.uniq = function(list, iteratee) {
+    var res = [], cmp = iteratee ? _.map(list, iteratee) : list, tmp = [];
+
+    for (var i = 0, l = list.length; i < l; i++)
+      if (tmp.indexOf(cmp[i]) == -1) { tmp.push(cmp[i]); res.push(list[i]); }
+
+    return res;
+  };
+
+  _.all = function(args) {
+    var res = [], tmp;
+
+    for (var i = 1, l = arguments.length; i < l; i++) {
+      tmp = _.is_mr(args) ? arguments[i].apply(null, args) : arguments[i](args);
+
+      if (_.is_mr(tmp))
+        for (var j = 0, l = tmp.length; j < l; j++) res.push(tmp[j]);
+      else
+        res.push(tmp);
+    }
+    return _.to_mr(res);
+  };
+
+  _.spread = function(args) {
+    var fns = _.rest(arguments, 1), res = [], tmp;
+
+    for (var i = 0, fl = fns.length, al = args.length; i < fl && i < al; i++) {
+      tmp = fns[i] ? fns[i](args[i] ? args[i] : _.noop) : _.i(args[i]);
+
+      if (_.is_mr(tmp))
+        for (var j = 0, l = tmp.length; j < l; j++) res.push(tmp[j]);
+      else
+        res.push(tmp);
+    }
+    return _.to_mr(res);
+  };
 
   // async each - reduce
   // function base_loop_fn(body, end_q, end, complete, iter_or_predi, params) {
