@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>partial.js - test</title>
-</head>
 <body>
 
+<!--<script src="underscore.js"></script>-->
 <script src="partial.js"></script>
 
+<!--
 <script>
   var arr = [1,2,3,4,5,6,7], obj = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7};
 
@@ -114,6 +112,101 @@
   console.log(res19); // [11, 12, 3, 10]
 
 </script>
+-->
 
+<script>
+  var cur_expect, cur_res;
+  function check(res, expect) {
+    cur_expect = expect; cur_res = res;
+    return _.isArray(res) ? result(arrayCompare(res, expect)) : _.isObject(res) ? result(objectCompare(res, expect)) : result(compare(res, expect));
+  }
+  function arrayCompare(arr1, arr2) {
+    if (!compare(arr1.length, arr2.length)) { return false; }
+
+    if (_.isObject(arr2[0])) for (var res, i = 0, l = arr1.length; i < l; i++) { res = objectCompare(arr1[i], arr2[i]); }
+    else for (var res = true, i = 1, l = arr1.length; i < l && res; i++) { res = compare(arr1[i], arr2[i]); }
+
+    return res;
+  }
+  function objectCompare(obj1, obj2) { return arrayCompare(_.values(obj1), _.values(obj2)); }
+  function compare(a, b) { return a == b; }
+  function pass() { console.log("%c PASS", "color: green"); }
+  function fail() { console.error("expect is", cur_expect, "| res is", cur_res); }
+  function result(res) { res ? pass() : fail(); }
+
+  var list0 = [1, 2, 3, 4, 5, 6, 7];
+  var list1 = [[0, 1], [2, 3], [4, 5]];
+  var list2 = [
+    {title: "One Indian Girl", author: "Chetan Bhagat", stars: "3", type: "Paperback"},
+    {title: "Everyone Has A story", author: "Savi Sharma", stars: "4", type: "Paperback"},
+    {title: "Word Power Made Easy", author: "Norman Lewis", stars: "4.5", type: "Ebook"},
+    {title: "Manorama Yearbook 2016", author: "Mathew", stars: "4.5", type: "Paperback"},
+    {title: "Think and Grow Rich", author: "Napoleon Hill", stars: "4.5", type: "Ebook"}
+  ];
+  var list3 = { a: "h", b: "e", c: "l", d: "l", e: "o" };
+  var list4 = [
+    {name: "CJ", age: 32}, {name: "JE", age: 27},
+    {name: "JE", age: 27}, {name: "HA", age: 25},
+    {name: "ME", age: 37}, {name: "PJ", age: 28}
+  ];
+
+  console.log("========[ isMatch ]=========");
+  check(_.isMatch(list3, { c: "l", d: "l" }), true);
+
+  console.log("========[ reduce ]=========");
+  check(_.reduce(list1, function(a, b) { return a.concat(b); }, []), [0, 1, 2, 3, 4, 5]);
+  check(_.reduce(list3, function(a, b) { return a += b; }), "hello");
+
+  console.log("========[ reduceRight ]=========");
+  check(_.reduceRight(list1, function(a, b) { return a.concat(b); }, []), [4, 5, 2, 3, 0, 1]);
+  check(_.reduceRight(list3, function(a, b) { return a += b; }), "olleh");
+
+  console.log("========[ where ]=========");
+  check(_.where(list2, {stars: "4.5", type: "Ebook"}),
+    [{title: "Word Power Made Easy", author: "Norman Lewis", stars: "4.5", type: "Ebook"},
+      {title: "Think and Grow Rich", author: "Napoleon Hill", stars: "4.5", type: "Ebook"}]);
+  check(_.where(list2, {stars: "4.5", type: "Paperback"}),
+    [{title: "Manorama Yearbook 2016", author: "Mathew", stars: "4.5", type: "Paperback"}]);
+
+
+  console.log("========[ findWhere ]=========");
+  check(_.findWhere(list2, {title: "One Indian Girl"}),
+    {title: "One Indian Girl", author: "Chetan Bhagat", stars: "3", type: "Paperback"});
+  check(_.findWhere(list2, {stars: "4.5"}),
+    {title: "Word Power Made Easy", author: "Norman Lewis", stars: "4.5", type: "Ebook"});
+
+
+  console.log("========[ contains ]=========");
+  check(_.contains(list0, 3), true);
+  check(_.contains(list3, "e"), true);
+  check(_.contains(list0, 3, 3), false);
+
+
+  console.log("========[ invoke ]=========");
+  check(_.invoke([[5, 1, 7, 11], [3, 2, 1, 11]], 'sort'), [[1, 11, 5, 7], [1, 11, 2, 3]]);
+  check(_.invoke([[5, 1, 7, 11], [3, 2, 1, 11]], 'sort', function(a, b) { return a - b; }), [[1, 5, 7, 11], [1, 2, 3, 11]]);
+
+
+  console.log("========[ pluck ]=========");
+  check(_.pluck(list2, 'author'), ["Chetan Bhagat", "Savi Sharma", "Norman Lewis", "Mathew", "Napoleon Hill"]);
+
+
+  console.log("========[ max ]=========");
+  check(_.max(list4, function(person) { return person.age; }), {name: "ME", age: 37});
+
+
+  console.log("========[ min ]=========");
+  check(_.min(list4, function(person) { return person.age; }), {name: "HA", age: 25});
+
+
+  console.log("========[ sortBy ]=========");
+  check(_.sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); }), [5, 4, 6, 3, 1, 2]);
+
+
+</script>
 </body>
+<head>
+  <meta charset="UTF-8">
+  <title>partial.js - test</title>
+</head>
 </html>
