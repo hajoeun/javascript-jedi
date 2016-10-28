@@ -6,7 +6,7 @@
 <script src="partial.js"></script>
 
 <!--
-<script>
+<script> // TDD version 1.0
   var arr = [1,2,3,4,5,6,7], obj = {a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7};
 
   console.log("========[ TEST 1: _.map - array ]========");
@@ -113,43 +113,45 @@
 
 </script>
 -->
+<script> // Functions for TDD version 2.0
+var cur_expect, cur_res;
+function check(res, expect) {
+  cur_expect = expect; cur_res = res;
+  return _.isArray(res) ? result(arrayCompare(res, expect)) : _.isObject(res) ? result(objectCompare(res, expect)) : result(compare(res, expect));
+}
+function arrayCompare(arr1, arr2) {
+  if (!compare(arr1.length, arr2.length)) { return false; }
 
-<script>
-  var cur_expect, cur_res;
-  function check(res, expect) {
-    cur_expect = expect; cur_res = res;
-    return _.isArray(res) ? result(arrayCompare(res, expect)) : _.isObject(res) ? result(objectCompare(res, expect)) : result(compare(res, expect));
-  }
-  function arrayCompare(arr1, arr2) {
-    if (!compare(arr1.length, arr2.length)) { return false; }
+  if (_.isObject(arr2[0])) for (var res, i = 0, l = arr1.length; i < l; i++) { res = objectCompare(arr1[i], arr2[i]); }
+  else for (var res = true, i = 1, l = arr1.length; i < l && res; i++) { res = compare(arr1[i], arr2[i]); }
 
-    if (_.isObject(arr2[0])) for (var res, i = 0, l = arr1.length; i < l; i++) { res = objectCompare(arr1[i], arr2[i]); }
-    else for (var res = true, i = 1, l = arr1.length; i < l && res; i++) { res = compare(arr1[i], arr2[i]); }
+  return res;
+}
+function objectCompare(obj1, obj2) { return arrayCompare(_.values(obj1), _.values(obj2)); }
+function compare(a, b) { return a == b; }
+function pass() { console.log("%c PASS", "color: green"); }
+function fail() { console.error("expect is", cur_expect, "| res is", cur_res); }
+function result(res) { res ? pass() : fail(); }
 
-    return res;
-  }
-  function objectCompare(obj1, obj2) { return arrayCompare(_.values(obj1), _.values(obj2)); }
-  function compare(a, b) { return a == b; }
-  function pass() { console.log("%c PASS", "color: green"); }
-  function fail() { console.error("expect is", cur_expect, "| res is", cur_res); }
-  function result(res) { res ? pass() : fail(); }
-
-  var list0 = [1, 2, 3, 4, 5, 6, 7];
-  var list1 = [[0, 1], [2, 3], [4, 5]];
-  var list2 = [
-    {title: "One Indian Girl", author: "Chetan Bhagat", stars: "3", type: "Paperback"},
-    {title: "Everyone Has A story", author: "Savi Sharma", stars: "4", type: "Paperback"},
-    {title: "Word Power Made Easy", author: "Norman Lewis", stars: "4.5", type: "Ebook"},
-    {title: "Manorama Yearbook 2016", author: "Mathew", stars: "4.5", type: "Paperback"},
-    {title: "Think and Grow Rich", author: "Napoleon Hill", stars: "4.5", type: "Ebook"}
-  ];
-  var list3 = { a: "h", b: "e", c: "l", d: "l", e: "o" };
-  var list4 = [
-    {name: "CJ", age: 32}, {name: "JE", age: 27},
-    {name: "JE", age: 27}, {name: "HA", age: 25},
-    {name: "ME", age: 37}, {name: "PJ", age: 28}
-  ];
-
+var list0 = [1, 2, 3, 4, 5, 6, 7];
+var list1 = [[0, 1], [2, 3], [4, 5]];
+var list2 = [
+  {title: "One Indian Girl", author: "Chetan Bhagat", stars: "3", type: "Paperback"},
+  {title: "Everyone Has A story", author: "Savi Sharma", stars: "4", type: "Paperback"},
+  {title: "Word Power Made Easy", author: "Norman Lewis", stars: "4.5", type: "Ebook"},
+  {title: "Manorama Yearbook 2016", author: "Mathew", stars: "4.5", type: "Paperback"},
+  {title: "Think and Grow Rich", author: "Napoleon Hill", stars: "4.5", type: "Ebook"}
+];
+var list3 = { a: "h", b: "e", c: "l", d: "l", e: "o" };
+var list4 = [
+  {name: "CJ", age: 32}, {name: "JE", age: 27},
+  {name: "JE", age: 27}, {name: "HA", age: 25},
+  {name: "ME", age: 37}, {name: "PJ", age: 28}
+];
+var list5 = [{name: 'moe', age: 40}, {name: 'larry', age: 50}, {name: 'curly', age: 60}];
+</script>
+<!--
+<script> // isMatch ~ partition
   console.log("========[ isMatch ]=========");
   check(_.isMatch(list3, { c: "l", d: "l" }), true);
 
@@ -201,6 +203,94 @@
 
   console.log("========[ sortBy ]=========");
   check(_.sortBy([1, 2, 3, 4, 5, 6], function(num){ return Math.sin(num); }), [5, 4, 6, 3, 1, 2]);
+
+
+  console.log("========[ groupBy ]=========");
+  check(_.groupBy([1.3, 2.1, 2.4], function(num){ return Math.floor(num); }), {1: [1.3], 2: [2.1, 2.4]});
+  check(_.groupBy(['one', 'two', 'three'], 'length'), {3: ["one", "two"], 5: ["three"]});
+
+
+  console.log("========[ indexBy ]=========");
+  check(_.indexBy(list5, 'age'), { "40": {name: 'moe', age: 40}, "50": {name: 'larry', age: 50}, "60": {name: 'curly', age: 60} });
+
+
+  console.log("========[ countBy ]=========");
+  check(_.countBy([1, 2, 3, 4, 5], function(num) { return num % 2 == 0 ? 'even': 'odd'; }), {odd: 3, even: 2});
+
+
+  console.log("========[ shuffle ]=========");
+  console.log(_.shuffle(list0));
+  console.log(_.shuffle(list3));
+
+  console.log("========[ sample ]=========");
+  console.log(_.sample(list0, 3));
+  console.log(_.sample(list3, 2));
+
+
+  console.log("========[ size ]=========");
+  check(_.size(list4), 6);
+  check(_.size({one: 1, two: 2, three: 3}), 3);
+
+
+  console.log("========[ partition ]=========");
+  check(_.partition([0, 1, 2, 3, 4, 5], function(v) { return v % 2 == 0 }), [[0, 2, 4], [1, 3, 5]]);
+</script>
+-->
+<script> // objects series
+//  console.log("========[ keys ]=========");
+//  check(_.keys(list3), ['a', 'b', 'c', 'd', 'e']);
+//
+//  console.log("========[ keys ]=========");
+//  check(_.values(list3), ['h', 'e', 'l', 'l', 'o']);
+//
+//  console.log("========[ mapObject ]=========");
+//  check(_.mapObject(list3, function(v) { return v.toUpperCase(); }), { a: "H", b: "E", c: "L", d: "L", e: "O" })
+//
+//  console.log("========[ pairs ]=========");
+//  check(_.pairs({one: 1, two: 2, three: 3}), [["one", 1], ["two", 2], ["three", 3]]);
+//
+//  console.log("========[ invert ]=========");
+//  check(_.invert({Moe: "Moses", Larry: "Louis", Curly: "Jerome"}), {Moses: "Moe", Louis: "Larry", Jerome: "Curly"});
+//
+//  console.log("========[ functions ]=========");
+//  var obj = {func1: function() {return this.func2;}, func2: function() {return this.func3;}, func3: function() {return this.func1;}};
+//  check(_.functions(obj), ['func1', 'func2', 'func3']);
+//
+//  console.log("========[ pick ]=========");
+//  check(_.pick({name: 'moe', age: 50, userid: 'moe1'}, 'name', 'age'), {name: 'moe', age: 50});
+//  check(_.pick({name: 'moe', age: 50, userid: 'moe1'}, function(value, key, object) { return typeof value == 'number' }), {age: 50});
+//
+//  console.log("========[ omit ]=========");
+//  check(_.omit({name: 'moe', age: 50, userid: 'moe1'}, 'userid'), {name: 'moe', age: 50});
+//  check(_.omit({name: 'moe', age: 50, userid: 'moe1'}, function(value) { return _.isNumber(value); }), {name: 'moe', userid: 'moe1'});
+//
+//  console.log("========[ isEqual ]=========");
+//  var stooge = {name: 'moe', luckyNumbers: [13, 27, 34]}; var clone1  = {name: 'moe', luckyNumbers: [13, 22, 34]}, clone2 = {name: 'moe', luckyNumbers: [13, 27, 34]};
+//  check(_.isEqual(stooge, clone1), false);
+//  check(_.isEqual(stooge, clone2), true);
+//  check(_.isEqual([1,2,3],[1,2,2]), false);
+//  check(_.isEqual([1,2,3],[1,2,3]), true);
+
+var stooge = {name: 'moe', luckyNumbers: [13, 27, 34]}; var clone1  = {name: 'moe', luckyNumbers: [13, 22, 34]}, clone2 = {name: 'moe', luckyNumbers: [13, 27, 34]};
+
+
+
+console.time();
+for (var i = 0; i < 2000; i++) {
+  _.eq1([1,2,3],[1,2,2]);
+  _.eq1(stooge,clone1);
+}
+console.timeEnd();
+
+console.time();
+for (var i = 0; i < 2000; i++) {
+  _.eq2([1,2,3],[1,2,2]);
+  _.eq2(stooge,clone1);
+}
+console.timeEnd();
+
+
+
 
 
 </script>
