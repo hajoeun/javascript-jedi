@@ -277,15 +277,13 @@ var stooge = {name: 'moe', luckyNumbers: [13, 27, 34]}; var clone1  = {name: 'mo
 
 console.time();
 for (var i = 0; i < 2000; i++) {
-  _.eq1([1,2,3],[1,2,2]);
-  _.eq1(stooge,clone1);
+  typeof {};
+
 }
 console.timeEnd();
-
 console.time();
 for (var i = 0; i < 2000; i++) {
-  _.eq2([1,2,3],[1,2,2]);
-  _.eq2(stooge,clone1);
+  _.isObject({});
 }
 console.timeEnd();
 
