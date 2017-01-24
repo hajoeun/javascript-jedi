@@ -5,5 +5,5 @@ function hello() {
   return greeting;
 }
 
-console.log(hello());
-console.log(greeting);
+console.log(hello()); // Hello
+console.log(greeting); // Good Bye
